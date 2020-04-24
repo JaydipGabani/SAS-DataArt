@@ -34,7 +34,22 @@ void setup() {
 
 void draw() {
 
-  background(150, 200, 215); 
+  //background(150, 200, 215); 
+  //tint(255, 127);
+  background(255-x, 250-y, 0+z, 0.5);
+  //x+=10;
+  
+  if(250-y>0)
+  {
+    y+=5;
+  }
+  else if(250-y<=0)
+  {
+    x+=50;
+    y=250;
+    z+=10;
+  }
+  delay(100);
   
   for (int i = 0; i < layers.length; i++) {
 
