@@ -7,7 +7,7 @@ class Landscape {
   float shade;
   float res;  
   int layer;
-
+  public boolean current = false;
   Landscape(int layer, int b, float s, float r) {
 
     this.layer = layer;
@@ -54,7 +54,7 @@ class Landscape {
         vertex(width, height*2); 
         vertex(0, height*2);
       }
-      System.out.println(points[i].x);
+      //System.out.println(points[i].x);
 
       if ((int)i%8==0)
       {
@@ -74,10 +74,14 @@ class Landscape {
             fill(0, 50, 255);
           else if (layer==3)
             fill(255, 50, 0);
-          ellipse(points[i].x + xoff, points[i].y + yoff - 10, val, val);
+          if(current)
+          {
+            ellipse(points[i].x + xoff, points[i].y + yoff - 10, val, val);
+            fill(255);
+            ellipse(points[i].x, points[i].y - 10, 6, 6);
+          }
         }
-        fill(255);
-        ellipse(points[i].x, points[i].y - 10, 6, 6);
+        
 
         //translate(points[i].x,points[i].y);
         //for (int f= 0; f < 10; f ++) {
