@@ -1,5 +1,9 @@
+
+import java.util.Random;
+import java.lang.*;
 Landscape[] layers = new Landscape[4];
 int angle=0;
+int x = 0,y = 0,z =0;
 
 void settings()
 {
@@ -8,8 +12,9 @@ void settings()
 
 void setup() {
   //size of sketch, initial bgcolor
-  //background(125, 190, 210);
+  //b210);
 
+    //focusLighting();
   for (int i = 0; i < layers.length; i++) {
 
     int j = int(map(i, 0, layers.length, height/2.5, height));
@@ -31,7 +36,7 @@ void setup() {
     }
   }
 }
-
+int current_layer = 0;
 void draw() {
 
   //background(150, 200, 215); 
@@ -54,8 +59,32 @@ void draw() {
   for (int i = 0; i < layers.length; i++) {
 
     float j = map(i, 0, layers.length, .5, 10);
-
+    //print(j);
+    if( current_layer < 150)
+     { 
+       layers[1].current = true;
+       layers[2].current = false;
+       layers[3].current = false;
+     }
+    else if (current_layer < 300)
+    {
+      
+      layers[2].current = true;
+       layers[1].current = false;
+       layers[3].current = false;
+    }
+    else 
+    {
+      
+      layers[3].current = true;
+       layers[2].current = false;
+       layers[1].current = false;
+    }
+    current_layer ++;
+    if(current_layer == 450)
+      current_layer = 0;
     layers[i].update(j*0.5);
+    
     if (i != 0) {
       layers[i].display();
 
@@ -78,3 +107,23 @@ void draw() {
     line(0, i, width, i);
   }
 }
+
+//void focusLighting(){
+  
+//  for (int x = 0; x < width; x++) {
+//    for (int y = 0; y < 10+ graphHeight; y++ ) {
+//      float r,g,b;
+//      //float d = dist(x, y, currentTime, 10+graphHeight/2);
+//      float d = Math.abs(currentTime - x);
+//      float adjustbrightness = 0.8*255*(maxdist-d)/maxdist; // was 255*(maxdist-d)/maxdist;
+//      // Constrain RGB to make sure they are within 0-255 color range
+//      r = constrain(red(get(x,y))+adjustbrightness, 0, 255);
+//      g = constrain(green(get(x,y))+adjustbrightness, 0, 255);
+//      b = constrain(blue(get(x,y))+adjustbrightness, 0, 255);
+//      // Make a new color and set pixel in the window
+//      color c = color(r, g, b);
+//      set(x,y,c);
+//    }
+//  }
+  
+//}
