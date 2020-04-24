@@ -62,7 +62,7 @@ class Landscape {
         //beginShape();
         //fill(204, 101, 192, 127);
         noStroke();
-        //angle += 5;
+        angle += 5;
         float val = 10.0;
         for (int a = 0; a < 360; a += 75) 
         {
@@ -79,11 +79,11 @@ class Landscape {
         fill(255);
         ellipse(points[i].x, points[i].y - 10, 6, 6);
 
-        ////translate(580, 70);
+        //translate(points[i].x,points[i].y);
         //for (int f= 0; f < 10; f ++) {
         //  //rotate(PI/5);
         //  ellipse(points[i].x, points[i].y, 10, 40);
-        //  //rotate(PI/5);
+        //  rotate(PI/5);
         //}
         ////endShape();
         popMatrix();

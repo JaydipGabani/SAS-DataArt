@@ -1,5 +1,7 @@
 Landscape[] layers = new Landscape[4];
 int angle=0;
+int x=0,y=0,z=0;
+PGraphics myGraphics;
 
 void settings()
 {
@@ -9,7 +11,8 @@ void settings()
 void setup() {
   //size of sketch, initial bgcolor
   //background(125, 190, 210);
-
+  myGraphics = createGraphics(width, height);
+  
   for (int i = 0; i < layers.length; i++) {
 
     int j = int(map(i, 0, layers.length, height/2.5, height));
@@ -36,7 +39,9 @@ void draw() {
 
   //background(150, 200, 215); 
   //tint(255, 127);
-  background(255-x, 250-y, 0+z, 0.5);
+  myGraphics.beginDraw();
+  myGraphics.background(255-x, 250-y, 0+z, 60);
+  //background(255-x, 250-y, 0+z);
   //x+=10;
   
   if(250-y>0)
@@ -49,7 +54,14 @@ void draw() {
     y=250;
     z+=10;
   }
-  delay(100);
+  else if (255-x<=0 && 250-y<=0 && z==255)
+  {
+    x+=50;
+    y=250;
+    z-=10;
+  }
+  //else if( )
+  delay(150);
   
   for (int i = 0; i < layers.length; i++) {
 
@@ -77,4 +89,8 @@ void draw() {
     stroke(255, j);
     line(0, i, width, i);
   }
+  
+  myGraphics.endDraw();
+  image(myGraphics, 0, 0);
+
 }
