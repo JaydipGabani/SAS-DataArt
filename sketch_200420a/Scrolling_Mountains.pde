@@ -1,3 +1,5 @@
+import com.hamoid.*;
+VideoExport videoExport;
 
 import java.util.Random;
 import java.lang.*;
@@ -6,17 +8,23 @@ int angle=0;
 int x=0,y=0,z=0;
 PGraphics myGraphics;
 
+
 void settings()
 {
   size(1700, 200);
+  
 }
 
 void setup() {
   //size of sketch, initial bgcolor
-
+frameRate(23);
   //background(125, 190, 210);
   myGraphics = createGraphics(width, height);
   
+  sprout = loadImage("sproutsss.png");
+  sproutBrown = loadImage("sprouts_copy.png");
+  sprout.resize(60,60);
+  sproutBrown.resize(60,60);
 
   for (int i = 0; i < layers.length; i++) {
 
@@ -38,16 +46,17 @@ void setup() {
       layers[i2].update(j*0.5);
     }
   }
+  videoExport = new VideoExport(this);
+  videoExport.startMovie();
+  
 }
 int current_layer = 0;
 void draw() {
-
-  //background(150, 200, 215); 
-  //tint(255, 127);
+  
+  
+  
   myGraphics.beginDraw();
   myGraphics.background(255-x, 250-y, 0+z, 60);
-  //background(255-x, 250-y, 0+z);
-  //x+=10;
   
   if(250-y>0)
   {
@@ -71,7 +80,6 @@ void draw() {
   for (int i = 0; i < layers.length; i++) {
 
     float j = map(i, 0, layers.length, .5, 10);
-    //print(j);
     if( current_layer < 150)
      { 
        layers[1].current = true;
@@ -99,18 +107,13 @@ void draw() {
     
     if (i != 0) {
       layers[i].display();
-
+      //renderDrops();
+      //renderSnow();
+      image(sproutBrown,500-currentTime/250,100);
     }
+    if(i==3) renderDrops();
+    if(i==0) renderSnow();
   }
-
-  //  layer00.update(.33);
-  //  layer00.display();
-
-  //  layer01.update(1);
-  //  layer01.display();
-
-  //  layer02.update(3);
-  //  layer02.display();
 
   strokeWeight(5);
   for (int i = 0; i < height; i+=5) {
@@ -121,25 +124,68 @@ void draw() {
   
   myGraphics.endDraw();
   image(myGraphics, 0, 0);
-
+  
+  
+  currentTime+=100;
 }
 
-//void focusLighting(){
+
+// AMG CODE HERE
+int currentTime = 0;
+int totalDrop = 0;
+int totalSnow = 0;
+PImage sprout, sproutBrown;
+int DROP_COUNT=40;
+final int SNOW_COUNT = 80;
+Drop[] drops=new Drop[DROP_COUNT];
+SnowFlake[] snowFlakes = new SnowFlake[SNOW_COUNT];
+void renderDrops(){
+  if(totalDrop<DROP_COUNT){
+    drops[totalDrop++]=new Drop();
+  }else if(totalDrop>DROP_COUNT/2){
+    totalDrop += random(-1,1);
+  }
   
-//  for (int x = 0; x < width; x++) {
-//    for (int y = 0; y < 10+ graphHeight; y++ ) {
-//      float r,g,b;
-//      //float d = dist(x, y, currentTime, 10+graphHeight/2);
-//      float d = Math.abs(currentTime - x);
-//      float adjustbrightness = 0.8*255*(maxdist-d)/maxdist; // was 255*(maxdist-d)/maxdist;
-//      // Constrain RGB to make sure they are within 0-255 color range
-//      r = constrain(red(get(x,y))+adjustbrightness, 0, 255);
-//      g = constrain(green(get(x,y))+adjustbrightness, 0, 255);
-//      b = constrain(blue(get(x,y))+adjustbrightness, 0, 255);
-//      // Make a new color and set pixel in the window
-//      color c = color(r, g, b);
-//      set(x,y,c);
-//    }
-//  }
+  for(int i=0;i<totalDrop;i++){
+    drops[i].move();
+    drops[i].display();
+  }
+}
+void renderSnow(){
   
-//}
+  if(totalSnow<SNOW_COUNT){
+    snowFlakes[totalSnow++] = new SnowFlake();
+  }else if(totalSnow>SNOW_COUNT/2){
+    totalSnow += random(-1,1);
+  }
+  for(int i=0;i<totalSnow;i++){
+    snowFlakes[i].draw();
+  }
+}
+void keyPressed() {
+  if (key == 'q') {
+    videoExport.endMovie();
+    exit();
+  }
+}
+// AMG  CODE ENDS HERE
+
+void focusLighting(){
+  
+  for (int x = 0; x < width; x++) {
+    for (int y = 0; y < height; y++ ) {
+      float r,g,b;
+      //float d = dist(x, y, currentTime, 10+graphHeight/2);
+      float d = Math.abs(currentTime - x);
+      float adjustbrightness = 0.8*255*(width/8-d)/(width/8); // was 255*(maxdist-d)/maxdist;
+      // Constrain RGB to make sure they are within 0-255 color range
+      r = constrain(red(get(x,y))+adjustbrightness, 0, 255);
+      g = constrain(green(get(x,y))+adjustbrightness, 0, 255);
+      b = constrain(blue(get(x,y))+adjustbrightness, 0, 255);
+      // Make a new color and set pixel in the window
+      color c = color(r, g, b);
+      set(x,y,c);
+    }
+  }
+  
+}
