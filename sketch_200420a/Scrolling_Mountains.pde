@@ -3,6 +3,7 @@ import java.util.Random;
 import java.lang.*;
 Landscape[] layers = new Landscape[4];
 int angle=0;
+int temp=0;
 int x=0,y=0,z=0;
 PGraphics myGraphics;
 
@@ -45,27 +46,41 @@ void draw() {
   //background(150, 200, 215); 
   //tint(255, 127);
   myGraphics.beginDraw();
-  myGraphics.background(255-x, 250-y, 0+z, 60);
+  myGraphics.background(255-x, 250-y, 0+z, 70);
   //background(255-x, 250-y, 0+z);
   //x+=10;
   
-  if(250-y>0)
+  if(250-y>0)//yellow to red
   {
+    System.out.println("Yellow to red:" + x+","+y+","+z);
     y+=5;
   }
-  else if(250-y<=0)
+  else if (255-x<=200 && z>=250 && 250-y<=0) //blue to red
   {
-    x+=50;
+    System.out.println("hello" + temp++);
+    System.out.println(x+","+y+","+z);
+    
+    x-=50;
     y=250;
-    z+=10;
+    z-=50;
   }
-  else if (255-x<=0 && 250-y<=0 && z==255)
+  else if(250-y<=0 && 255-x>0 && z<255)//red to blue
   {
-    x+=50;
+    System.out.println("Red to blue:" + x+","+y+","+z);
+    x+=20;
     y=250;
-    z-=10;
+    z+=20;  
   }
-  //else if( )
+  //else if (255-x<=0 && z>=250 && 250-y<=0) //red to blue
+  //{
+  //  System.out.println("hello");
+   
+  //  x=-20;
+  //  y=250;
+  //  z=-20;
+  //}
+  //else if(255-x<=0 && 250-y)//blue to yellow again
+  
   delay(150);
   
   for (int i = 0; i < layers.length; i++) {
