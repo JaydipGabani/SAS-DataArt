@@ -5,6 +5,7 @@ import java.util.Random;
 import java.lang.*;
 Landscape[] layers = new Landscape[4];
 int angle=0;
+int temp=0;
 int x=0,y=0,z=0;
 PGraphics myGraphics;
 
@@ -21,10 +22,10 @@ frameRate(23);
   //background(125, 190, 210);
   myGraphics = createGraphics(width, height);
   
-  sprout = loadImage("sproutsss.png");
-  sproutBrown = loadImage("sprouts_copy.png");
-  sprout.resize(60,60);
-  sproutBrown.resize(60,60);
+  //sprout = loadImage("sproutsss.png");
+  //sproutBrown = loadImage("sprouts_copy.png");
+  //sprout.resize(60,60);
+  //sproutBrown.resize(60,60);
 
   for (int i = 0; i < layers.length; i++) {
 
@@ -56,25 +57,65 @@ void draw() {
   
   
   myGraphics.beginDraw();
-  myGraphics.background(255-x, 250-y, 0+z, 60);
+  float rg = map(abs((millis()%10000)-5000), 0, 5000, 0, 255);
   
-  if(250-y>0)
-  {
-    y+=5;
-  }
-  else if(250-y<=0)
-  {
-    x+=50;
-    y=250;
-    z+=10;
-  }
-  else if (255-x<=0 && 250-y<=0 && z==255)
-  {
-    x+=50;
-    y=250;
-    z-=10;
-  }
-  //else if( )
+  if(rg>150)
+    background(255, rg, 255-rg, 70);
+  else if(rg<150)
+    background(rg,rg,255,70);
+    
+  //myGraphics.background(255-x, 250-y, 0+z, 70);
+  ////background(255-x, 250-y, 0+z);
+  ////x+=10;
+  //myGraphics.background(255-x, 250-y, 0+z, 60);
+  
+  //if(250-y>0)//yellow to red
+  //{
+  //  System.out.println("Yellow to red:" + x+","+y+","+z);
+  //  y+=5;
+  //}
+  //else if (255-x<=200 && z>=250 && 250-y<=0) //blue to red
+  //{
+  //  System.out.println("hello" + temp++);
+  //  System.out.println(x+","+y+","+z);
+    
+  //  x-=50;
+  //  y=250;
+  //  z-=50;
+  //}
+  //else if(250-y<=0 && 255-x>0 && z<255)//red to blue
+  //{
+  //  System.out.println("Red to blue:" + x+","+y+","+z);
+  //  x+=20;
+  //  y=250;
+  //  z+=20;  
+  //}
+  //else if (255-x<=0 && z>=250 && 250-y<=0) //red to blue
+  //{
+  //  System.out.println("hello");
+   
+  //  x=-20;
+  //  y=250;
+  //  z=-20;
+  //}
+  //else if(255-x<=0 && 250-y)//blue to yellow again
+  
+  pushMatrix();
+  translate(width/2, height/2);
+  rotate(-PI);
+  rotate(map(millis()%10000, 0, 10000, 0, TWO_PI));
+  // The Sun
+  //fill(255, 255-rg, 255-rg);
+  noStroke();
+  fill(255,180,0);
+  ellipse(0, 200, 50, 50);
+  // The Moon
+  fill(255);
+  ellipse(0, -200, 50, 50);
+  popMatrix();
+  
+  //delay(100);
+  
   delay(150);
   
   for (int i = 0; i < layers.length; i++) {
@@ -109,9 +150,9 @@ void draw() {
       layers[i].display();
       //renderDrops();
       //renderSnow();
-      image(sproutBrown,500-currentTime/250,100);
+      //image(sproutBrown,500-currentTime/250,100);
     }
-    if(i==3) renderDrops();
+    //if(i==3) renderDrops();
     if(i==0) renderSnow();
   }
 
