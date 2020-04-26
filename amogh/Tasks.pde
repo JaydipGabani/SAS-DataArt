@@ -5,6 +5,7 @@ import java.util.Random;
 // define these in main:
 //    int oneDayPixel, pixelPerDegree, graphHeight;
 //    int oneDayPixel = width/24;
+//    final Float[] temperatures = {4.0,2.1,..... array of size 24 ...}
 // float min,max;
 // Now, call the function calc() in setup
 
