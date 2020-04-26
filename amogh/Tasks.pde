@@ -1,8 +1,15 @@
 
 import java.util.Random;
 
+// define these in main:
+//    int oneDayPixel, pixelPerDegree, graphHeight;
+//    int oneDayPixel = width/24;
+// float min,max;
+// Now, call the function calc() in setup
+
+
 void renderTemperature(){
-  int x = 5;
+  int x = 5;  // Start the graph 5 pixels from the left
   for(int i=0;i<temperatures.length-1;i++,x+=oneDayPixel){
     int x1 = x;
     int y1 = 10 + getPosition(temperatures[i]);
