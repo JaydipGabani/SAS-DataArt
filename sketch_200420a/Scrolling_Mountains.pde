@@ -187,7 +187,14 @@ void draw() {
       case 3: text("Tallahassee",width*0.72,height/1.05); break;
     }
   }
-  
+  stroke(255);
+  line(5,height-10,5,height/5);
+  fill(255);
+  textSize(16);
+  fill(0,0,255);
+  text("30 F", 10, height-10);
+  fill(255,0,0);
+  text("101 F", 10, height/4.5);
   myGraphics.endDraw();
   image(myGraphics, 0, 0);
   
