@@ -1,11 +1,13 @@
 
 import java.util.Random;
 
+// Use calc(), getPosition(), and renderTemperature()
 // define these in main:
 //    int oneDayPixel, pixelPerDegree, graphHeight;
 //    int oneDayPixel = width/24;
 // float min,max;
 // Now, call the function calc() in setup
+
 
 
 void renderTemperature(){
