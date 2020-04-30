@@ -56,7 +56,7 @@ class Landscape {
       }
       //System.out.println(points[i].x);
 
-      if ((int)i%8==0)
+      if ((int)i%3==0)
       {
         pushMatrix();
         //beginShape();
@@ -68,31 +68,47 @@ class Landscape {
         {
           float xoff = cos(radians(a)) * val;
           float yoff = sin(radians(a)) * val;
-          if (layer==1)
-            fill(204, 101, 192);
-          else if (layer==2)
-            fill(0, 50, 255);
-          else if (layer==3)
-            fill(255, 50, 0);
-          if(current)
+          //System.out.println(points[i].y +"  "+layer);
+          
+          if (layer==1) //no precipitation
           {
+            if (points[i].y<=100)//outdoor and warm
+              fill(138,255,0);
+            else if (points[i].y>100 && points[i].y<=110)//pleasant and indoor
+              fill(255,0,48);
+            else
+              fill(200, 80, 205);//cold and indoor
+          } else if (layer==2) //snowy layer
+          {
+            if (points[i].y<=110)//warm
+              fill(138,255,0);
+            else if (points[i].y>110 && points[i].y<=130)//pleasant
+              fill(255,0,48);
+            else
+              fill(204, 101, 192);//cold
+          } else if (layer==3) //rainy layer
+          {
+            if (points[i].y<=140)//warm temp
+              fill(138,255,0);
+            else if (points[i].y>140 && points[i].y<=180)//pleasant
+              fill(255,0,48);
+            else
+              fill(204, 101, 192);//cold
+          }
+          if (current)
+          {
+            stroke(0);
+            strokeWeight(0.2);
             ellipse(points[i].x + xoff, points[i].y + yoff - 10, val, val);
             fill(255);
             ellipse(points[i].x, points[i].y - 10, 6, 6);
           }
         }
-        
 
-        //translate(points[i].x,points[i].y);
-        //for (int f= 0; f < 10; f ++) {
-        //  //rotate(PI/5);
-        //  ellipse(points[i].x, points[i].y, 10, 40);
-        //  rotate(PI/5);
-        //}
-        ////endShape();
         popMatrix();
       }
     }
+    noStroke();
     fill(75-shade, 165-shade, 70-shade);
     vertex(points[0].x, points[0].y);
 
