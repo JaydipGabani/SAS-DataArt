@@ -11,7 +11,9 @@ int angle=0;
 int temp=0;
 int x=0, y=0, z=0;
 PGraphics myGraphics;
+
 PFont dayFont;
+
 //int oneDayPixel, pixelPerDegree, graphHeight;
 //float min,max;
 //final Float[] temperatures = {9.4,11.1,11.7,11.7,12.8,12.8,12.8,12.8,11.1,10.0,8.9,8.3,8.3,8.9,8.9,8.3,7.8,6.7,5.6,5.6,4.4,10.0,10.0,9.4};
@@ -94,12 +96,23 @@ void draw() {
   for (int i = 0; i < layers.length; i++) {
 
     float j = map(i, 0, layers.length, .5, 10);
+
     if ( current_layer < 150)
     { 
       layers[1].current = true;
       layers[2].current = false;
       layers[3].current = false;
     } else if (current_layer < 300)
+
+    if( current_layer < 150)
+     { 
+       layers[1].current = true;
+       
+       layers[2].current = false;
+       layers[3].current = false;
+     }
+    else if (current_layer < 300)
+
     {
       renderSnow();
       layers[2].current = true;
@@ -121,11 +134,16 @@ void draw() {
       layers[i].display();
 
 
+
+
       //renderDrops();
       //renderSnow();
       //image(sproutBrown,500-currentTime/250,100);
     }
     //if(i==3) renderDrops();
+
+    //if(i==0) renderSnow();
+
     //if(i==0) renderSnow();
     //renderTemperature();
   }
@@ -136,7 +154,6 @@ void draw() {
     stroke(255, j);
     line(0, i, width, i);
   }
-
 
   fill(255);
   textFont(dayFont);
@@ -162,6 +179,24 @@ void draw() {
   fill(0, 0, 255);
   text("30 F", 10, height-10);
   fill(255, 0, 0);
+  text("101 F", 10, height/4.5);
+  
+  textSize(18);
+    fill(255);
+  for(int i=1;i<=3;i++){
+  switch(i){
+      case 1: text("New York",width*0.72,height/2); break;
+      case 2: text("Cary",width*0.72,height/1.35); break;
+      case 3: text("Tallahassee",width*0.72,height/1.05); break;
+    }
+  }
+  stroke(255);
+  line(5,height-10,5,height/5);
+  fill(255);
+  textSize(16);
+  fill(0,0,255);
+  text("30 F", 10, height-10);
+  fill(255,0,0);
   text("101 F", 10, height/4.5);
 
   myGraphics.endDraw();
