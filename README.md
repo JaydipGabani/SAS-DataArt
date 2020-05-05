@@ -1,1 +1,3 @@
 # SAS-DataArt
+
+The goal of this project is to explore ways to help non-technical individuals connect to the story behind data. DataArt aims to create a data visualization in an artistic manner, to go beyond graphs, lines, and charts, and make it beautiful. Any viewer must be able to connect with it. We chose to depict 2 ideas in parallel - weather data, and congregation of people at certain kinds of places based on weather. This project was done in collaboration with SAS. The SAS office in Cary has a 15ft x 2ft display at its lobby, for the purpose of DataArt, where our work is planned to be displayed.
